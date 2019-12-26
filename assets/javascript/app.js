@@ -1,6 +1,7 @@
 console.log("JS Running...")
 
 
+
 // ** Login Page **
 
 // this will handle the input field on Submit
@@ -30,3 +31,23 @@ $("#ca-acct-button").on("click", function() {
     console.log("N: "+name,"E: "+email,"P: "+password)
 })
 
+
+
+
+
+// ** HOME PAGE **
+
+
+$("#test-button").on("click", function() {
+
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        var results = response.data
+        console.log(results)
+    })
+
+console.log("clicked")
+})
