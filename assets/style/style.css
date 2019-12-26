@@ -1,4 +1,6 @@
-body {
+
+/* Login Page */
+#login-body {
     background-image: url("../images/kyrie.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -6,7 +8,7 @@ body {
     background-size: cover;
 }
 
-.heading {
+.login-heading {
     text-align: center;
     background: white;
 }
@@ -19,6 +21,34 @@ h1 {
 }
 
 .login-container {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background: white;
+    opacity: 0.90;
+    margin-top: 300px;
+}
+
+
+
+
+/* Create Account Page */
+#create-body {
+    background-image: url("../images/loginImageBballjpg.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-size: cover;
+}
+
+.create-acct-heading {
+    text-align: center;
+    background: white;
+}
+
+.create-acct-container{
+
     width: 500px;
     margin-left: auto;
     margin-right: auto;
