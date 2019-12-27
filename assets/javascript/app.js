@@ -19,6 +19,8 @@ $("#login-button").on("click", function() {
 
 
 
+
+
 // ** Create Account Page **
 
 $("#ca-acct-button").on("click", function() {
@@ -35,19 +37,32 @@ $("#ca-acct-button").on("click", function() {
 
 
 
-// ** HOME PAGE **
 
+
+
+// ** HOME PAGE **
 
 $("#test-button").on("click", function() {
 
+    var userInput = $("#searchInput").val().trim()
+    
+    var queryURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=" + userInput + 
 
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-        var results = response.data
-        console.log(results)
-    })
 
-console.log("clicked")
+        // Result of item we are targeting
+        var result = response.items[0].id.videoId
+        
+        // Link To video (WORKING)
+        console.log("https://www.youtube.com/watch?v=" + result)
+
+
+        for(var i=0; i <result.length; i++) {
+            // console.log("Response: ")
+            // console.log(result[i])
+        }
+    })
 })
