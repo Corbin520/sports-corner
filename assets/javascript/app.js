@@ -1,6 +1,3 @@
-console.log("JS Running...")
-
-
 
 // ** Login Page **
 
@@ -45,24 +42,54 @@ $("#ca-acct-button").on("click", function() {
 $("#test-button").on("click", function() {
 
     var userInput = $("#searchInput").val().trim()
-    
-    var queryURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=" + userInput + 
+    var queryURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=" + userInput + 
+
+
 
     $.ajax({
+
         url: queryURL,
         method: "GET"
+
     }).then(function(response) {
 
-        // Result of item we are targeting
-        var result = response.items[0].id.videoId
-        
-        // Link To video (WORKING)
-        console.log("https://www.youtube.com/watch?v=" + result)
+        var result = response.items
 
 
-        for(var i=0; i <result.length; i++) {
-            // console.log("Response: ")
-            // console.log(result[i])
+
+        var youtubeURL = "https://www.youtube.com/watch?v=";
+        // var videoIdNumber = response.items[0].id.videoId;
+
+        // var done = youtubeURL + videoIdNumber
+        // console.log("done: " + done)
+
+
+
+
+
+        for (var i = 0; i < result.length; i++) {
+
+            console.log("")
+            console.log("Video: " + youtubeURL + result[i].id.videoId)
+
         }
+
+
     })
+
 })
+
+
+// 1) get a response from the API onClick
+// 2) dig into the response and get the data we need // also append it to the page
+// 3) loop over that data to get a few of the videos we want for the page
+
+
+        // creating an image with class name, id etc
+        // var image = $("<image>");
+        // image.addClass("images");
+        // image.attr("data-name", done);
+        // image.text(done);
+
+        // // appending our data to the browser
+        // $("#video-buttons").append(image);
