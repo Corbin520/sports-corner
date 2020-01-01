@@ -67,12 +67,26 @@ body {
 
 /* Main Page */
 
+#home-body {
+    background-image: url("../images/kyrie.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-size: cover;
+}
+
 #sc-txt-header {
     text-align: center;
+    color: orange;
+    font-weight: bolder;
+    font-size: 60px;
 }
 
 #about {
     text-align: center;
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
 }
 
 #searchInput {
