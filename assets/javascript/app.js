@@ -64,6 +64,15 @@ $("#test-button").on("click", function() {
 
             console.log("Image: " + result[i].snippet.thumbnails.medium.url);
             console.log("Video: " + youtubeURL + result[i].id.videoId);
+
+            var videos = $("<iframe>");
+            videos.addClass("vidAppend");
+            videos.attr("width", 560);
+            videos.attr("height", 315);
+            videos.attr("src", "https://www.youtube.com/embed/" + result[i].id.videoId);
+            videos.attr("frameborder", 0);
+            $("#video").append(videos)
+
         }
     })
 })
