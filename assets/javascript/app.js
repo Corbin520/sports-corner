@@ -35,14 +35,14 @@ $("#ca-acct-button").on("click", function() {
 
 
 
-
+var apiKey = config.apiKey
 
 // ** HOME PAGE **
 
-$("#test-button").on("click", function() {
+$("#search-button").on("click", function() {
 
     var userInput = $("#searchInput").val().trim()
-    var queryURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=" + userInput + "&key=AIzaSyC4lWI9kHf7QhSdd-cF9m59SbITCa8jZ30"
+    var queryURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&q=" + userInput + apiKey
 
 
 
@@ -60,15 +60,8 @@ $("#test-button").on("click", function() {
         // Loop working, just increese the results to more then 1 when ready
         for (var i = 0; i < result.length; i++) {
 
-            // get the title, 
-
-            console.log("Image: " + result[i].snippet.thumbnails.medium.url);
-            console.log("Video: " + youtubeURL + result[i].id.videoId);
-
             var videos = $("<iframe>");
             videos.addClass("vidAppend");
-            videos.attr("width", 560);
-            videos.attr("height", 315);
             videos.attr("src", "https://www.youtube.com/embed/" + result[i].id.videoId);
             videos.attr("frameborder", 0);
             $("#video").append(videos)
@@ -76,6 +69,3 @@ $("#test-button").on("click", function() {
         }
     })
 })
-
-
-// Next Step: Get the videos to display on the web page
