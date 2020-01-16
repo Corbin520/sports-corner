@@ -21,21 +21,22 @@ app.use(express.json());
 app.use("/assets", express.static("assets"))
 
 
+
+// home page route
 app.get("/", function(req, res) {
 
-  
-    // change the file name to switch that to my new html file.
     res.sendFile(path.join(__dirname, "index.html"));
   });
-
+// create account route
 app.get("/create", function(req, res) {
   res.sendFile(path.join(__dirname, "create.html"))
 });
-
+// login route
 app.get("/login", function(req, res) {
   res.sendFile(path.join(__dirname, "login.html"))
 });
 
+// thinking we will have todo a connection to push data in and then pull it out 
 // DB Connection
 var connection = mysql.createConnection({
       host: "localhost",
