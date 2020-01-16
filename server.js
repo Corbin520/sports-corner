@@ -27,6 +27,14 @@ app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
   });
 
+app.get("/create", function(req, res) {
+  res.sendFile(path.join(__dirname, "create.html"))
+});
+
+app.get("/login", function(req, res) {
+  res.sendFile(path.join(__dirname, "login.html"))
+});
+
 
 
 // Starts the server to begin listening
