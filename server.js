@@ -21,7 +21,7 @@ app.use(express.json());
 
 
 app.get("/", function(req, res) {
-    // res.send("Welcome to the Star Wars Page!")
+
   
     // change the file name to switch that to my new html file.
     res.sendFile(path.join(__dirname, "index.html"));
