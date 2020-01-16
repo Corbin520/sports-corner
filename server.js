@@ -13,7 +13,7 @@ var path = require("path");
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = 3000;
+var PORT = 3001;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -35,6 +35,24 @@ app.get("/create", function(req, res) {
 app.get("/login", function(req, res) {
   res.sendFile(path.join(__dirname, "login.html"))
 });
+
+// DB Connection
+var connection = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "",
+      database: "sportsCorner",
+      port: 3306,
+  });
+ 
+  connection.connect(function (err) {
+      console.log("connected as id " + connection.threadId)
+      afterConnection()
+  });  
+
+  function afterConnection() {
+      console.log("After Connection Fired off")
+  }
 
 
 
