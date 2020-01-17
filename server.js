@@ -47,8 +47,15 @@ app.get("/login", function(req, res) {
 app.post('/handler', function (req, res) {
 
   // taking and sending our data
-  console.log(req.body);
-  res.send(req.body);
+  // console.log(req.body.firstName);
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var email = req.body.email;
+  var password = req.body.password
+
+console.log("F:" + firstName, "L:" + lastName, "E:" + email, "P:" + password)
+
+  // res.send(req.body);
 
 })
 
