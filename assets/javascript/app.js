@@ -1,6 +1,8 @@
 
 // ** Login Page **
 
+var mysql = require("mysql")
+
 // this will handle the input field on Submit
 $("#login-button").on("click", function() {
     console.log("login button clicked")
@@ -12,9 +14,6 @@ $("#login-button").on("click", function() {
     console.log("Loging in....")
     console.log("N: "+name,"E: "+email,"P: "+password)
 })
-
-
-
 
 
 
@@ -69,3 +68,6 @@ $("#search-button").on("click", function() {
         }
     })
 })
+
+
+

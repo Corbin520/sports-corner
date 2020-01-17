@@ -36,36 +36,42 @@ app.get("/login", function(req, res) {
   res.sendFile(path.join(__dirname, "login.html"))
 });
 
+console.log(connection)
+
 // thinking we will have todo a connection to push data in and then pull it out 
 // DB Connection
 var connection = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "",
-      database: "sportsCorner",
-      port: 3306,
-  });
- 
-  connection.connect(function (err) {
-      console.log("connected as id " + connection.threadId)
-      afterConnection()
-  });  
+  host: "localhost",
+  user: "root",
+  password: "Oct0ber1st!",
+  database: "sportsCorner",
+  port: 3306,
+});
 
-  function afterConnection() {
+connection.connect(function (err) {
+  console.log("connected as id " + connection.threadId)
+  afterConnection()
+});  
 
-    connection.query('SELECT * FROM loginInfo', function (err, res) {
-      if (err) throw err;
+function afterConnection() {
 
-      console.log(res)
+connection.query('INSERT INTO loginInfo VALUES("test2","test3", "test4", "test5")', function (err, res) {
+  if (err) throw err;
 
-      connection.end()
-    })
 
-  }
+})
+
+connection.query('SELECT * FROM loginInfo', function (err, res) {
+  if (err) throw err;
+
+  console.log(res)
+
+  connection.end()
+})
+
+}
 
   
-
-
 
 // Starts the server to begin listening
 // =============================================================
