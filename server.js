@@ -52,8 +52,18 @@ var connection = mysql.createConnection({
   });  
 
   function afterConnection() {
-      console.log("After Connection Fired off")
+
+    connection.query('SELECT * FROM loginInfo', function (err, res) {
+      if (err) throw err;
+
+      console.log(res)
+
+      connection.end()
+    })
+
   }
+
+  
 
 
 
