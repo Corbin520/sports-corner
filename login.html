@@ -24,26 +24,15 @@
 
             <h3>Login Here</h3>
 
-            <div id="form-name">
-                <p>Name</p>
-                <input id="name-input" type="text" placeholder="Enter Name"> 
-            </div>
+            <form method="post" action="/handler">
+                
+                <input type="text" name="firstName" placeholder="First Name">
+                <input type="text" name="lastName" placeholder="Last Name">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
+                <input type="submit" />
 
-            <div id="form-email">
-                <p>Email</p>
-                <input id="email-input" type="email" placeholder="Enter Email Address">
-            </div>
-
-            <div id="form-password">
-                <p>Password</p>
-                <input id="password-input" type="password" placeholder="Enter Password">
-            </div>
-            <br>
-
-            <button id="login-button" type="submit">Login</button>
-
-            <!-- add a sign up page with <a> to a different route -->
-            <!-- <a id="create-account">Create an Account</a> -->
+            </form>
 
             <p id="ca-label">Dont Have an Account? 
                 <a id="ca-link" href="/create">Create One</a>

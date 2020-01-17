@@ -1,5 +1,5 @@
 
-// Require/import the HTTP module
+
 var express = require("express");
 var http = require("http");
 var mysql = require("mysql");
@@ -16,9 +16,15 @@ var app = express();
 var PORT = 3001;
 
 // Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public'))); // testing
+
 app.use(express.json());
 app.use("/assets", express.static("assets"))
+
+
+
+
 
 
 
@@ -36,9 +42,18 @@ app.get("/login", function(req, res) {
   res.sendFile(path.join(__dirname, "login.html"))
 });
 
-console.log(connection)
 
-// thinking we will have todo a connection to push data in and then pull it out 
+// Takes the data from our login form
+app.post('/handler', function (req, res) {
+
+  // taking and sending our data
+  console.log(req.body);
+  res.send(req.body);
+
+})
+
+
+
 // DB Connection
 var connection = mysql.createConnection({
   host: "localhost",
@@ -55,26 +70,25 @@ connection.connect(function (err) {
 
 function afterConnection() {
 
-connection.query('INSERT INTO loginInfo VALUES("test2","test3", "test4", "test5")', function (err, res) {
-  if (err) throw err;
+// connection.query('INSERT INTO loginInfo VALUES("test2","test3", "test4", "test5")', function (err, res) {
+//   if (err) throw err;
 
 
-})
+// })
 
-connection.query('SELECT * FROM loginInfo', function (err, res) {
-  if (err) throw err;
+// connection.query('SELECT * FROM loginInfo', function (err, res) {
+//   if (err) throw err;
 
-  console.log(res)
+//   console.log(res)
 
-  connection.end()
-})
+//   connection.end()
+// })
 
 }
 
   
 
-// Starts the server to begin listening
-// =============================================================
+// Start Server
 app.listen(PORT, function() {
     console.log("Server listening on: http://localhost:" + PORT);
   });
