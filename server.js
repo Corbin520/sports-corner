@@ -1,12 +1,11 @@
 
 
+// Dependencies
+// =============================================================
 var express = require("express");
 var http = require("http");
 var mysql = require("mysql");
 var fs = require("fs");
-
-// Dependencies
-// =============================================================
 var express = require("express");
 var path = require("path");
 
@@ -18,15 +17,12 @@ var PORT = 3001;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public'))); // testing
-
 app.use(express.json());
 app.use("/assets", express.static("assets"))
 
 
-
 // home page route
 app.get("/", function(req, res) {
-
     res.sendFile(path.join(__dirname, "index.html"));
   });
 // create account route
@@ -40,64 +36,59 @@ app.get("/login", function(req, res) {
 
 
 
-
-
 // DB Connection
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Oct0ber1st!",
+
   database: "sportsCorner",
   port: 3306,
 });
-
+// connection response 
 connection.connect(function (err) {
-  console.log("connected as id " + connection.threadId)
-  afterConnection()
+  console.log("SQL connected as id " + connection.threadId)
 });  
+
+
+
+
 
 // Takes the data from our login form
 app.post('/handler', function (req, res) {
 
-  // taking and sending our data
-  // console.log(req.body.firstName);
+  // user input from the forms
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var email = req.body.email;
   var password = req.body.password
 
-console.log("F: " + firstName, "L: " + lastName, "E: " + email, "P: " + password)
+  // testing our response
+  console.log("F: " + firstName, "L: " + lastName, "E: " + email, "P: " + password)
 
-  // res.send(req.body);
-
-  connection.query('INSERT INTO loginInfo', VALUES(firstName, lastName, email, password), function (err, res) {
+  // posting login info to DB
+  /* Notes:
+    when we insert the strings, it works but we
+    need to get the variables to insert into DB
+  */
+  connection.query('INSERT INTO loginInfo VALUES("effwordw2","effword", "test4", "test5")', function (err, res) {
     if (err) throw err;
-  })
+    console.log("Inserted ...")
+  });
 
+  // Getting login info from DB
+  connection.query('SELECT * from loginInfo', function (err, res) {
+    if (err) throw err;
+    console.log(res)
+    console.log("Response ...")
+  })
 });
 
-function afterConnection() {
-
-// connection.query('INSERT INTO loginInfo VALUES("test2","test3", "test4", "test5")', function (err, res) {
-//   if (err) throw err;
-
-// })
 
 
 
-connection.query('SELECT * from loginInfo', function (err, res) {
-  if (err) throw err;
-
-  console.log(res)
-
-  connection.end()
-})
-
-}
-
-  
+// connection.end()
 
 // Start Server
 app.listen(PORT, function() {
-    console.log("Server listening on: http://localhost:" + PORT);
-  });
+  console.log("Server listening on: http://localhost:" + PORT);
+});
