@@ -23,22 +23,6 @@ app.use(express.json());
 app.use("/assets", express.static("assets"))
 
 
-// DB Connection
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  
-  database: "sportsCorner",
-  port: 3306,
-});
-
-connection.connect(function (err) {
-  console.log("connected as id " + connection.threadId)
-  afterConnection()
-}); 
-
-
-
 
 // home page route
 app.get("/", function(req, res) {
@@ -55,10 +39,25 @@ app.get("/login", function(req, res) {
 });
 
 
+
+
+
+// DB Connection
+var connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "Oct0ber1st!",
+  database: "sportsCorner",
+  port: 3306,
+});
+
+connection.connect(function (err) {
+  console.log("connected as id " + connection.threadId)
+  afterConnection()
+});  
+
 // Takes the data from our login form
 app.post('/handler', function (req, res) {
-
-  
 
   // taking and sending our data
   // console.log(req.body.firstName);
@@ -67,31 +66,26 @@ app.post('/handler', function (req, res) {
   var email = req.body.email;
   var password = req.body.password
 
-  // write insert statements with the variables
+console.log("F: " + firstName, "L: " + lastName, "E: " + email, "P: " + password)
 
-console.log("F:" + firstName, "L:" + lastName, "E:" + email, "P:" + password)
+  // res.send(req.body);
 
- 
-
-  connection.query('INSERT INTO loginInfo VALUES (firstName, lastName, email, password)', function (err, res) {
+  connection.query('INSERT INTO loginInfo', VALUES(firstName, lastName, email, password), function (err, res) {
     if (err) throw err;
   })
-})
 
-
-
+});
 
 function afterConnection() {
 
-connection.query('INSERT INTO loginInfo VALUES("test2","test3", "test4", "test5")', function (err, res) {
-  if (err) throw err;
+// connection.query('INSERT INTO loginInfo VALUES("test2","test3", "test4", "test5")', function (err, res) {
+//   if (err) throw err;
+
+// })
 
 
-})
 
-
-
-connection.query('SELECT FirstName from loginInfo', function (err, res) {
+connection.query('SELECT * from loginInfo', function (err, res) {
   if (err) throw err;
 
   console.log(res)
