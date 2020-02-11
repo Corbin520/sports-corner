@@ -40,7 +40,7 @@ app.get("/login", function(req, res) {
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-
+  password: "",
   database: "sportsCorner",
   port: 3306,
 });
@@ -56,24 +56,31 @@ connection.connect(function (err) {
 // Takes the data from our login form
 app.post('/handler', function (req, res) {
 
+
   // user input from the forms
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var email = req.body.email;
-  var password = req.body.password
+  var passW = req.body.password;
 
   // testing our response
-  console.log("F: " + firstName, "L: " + lastName, "E: " + email, "P: " + password)
+  console.log("F: " + firstName, "L: " + lastName, "E: " + email, "P: " + passW)
 
-  // posting login info to DB
-  /* Notes:
-    when we insert the strings, it works but we
-    need to get the variables to insert into DB
-  */
-  connection.query('INSERT INTO loginInfo VALUES("effwordw2","effword", "test4", "test5")', function (err, res) {
+ 
+  connection.query("INSERT INTO loginInfo VALUES(firstName, lastName, email, passW)", function (err, res) {
     if (err) throw err;
     console.log("Inserted ...")
   });
+
+
+
+  var sql = `INSERT INTO loginInfo VALUES (?, ?, ?, ?)`;
+
+  connection.query(sql, [firstName, lastName, email, passW], function (err, res) {
+    if (err) throw err;
+    console.log("Inserted ...")
+  });
+
 
   // Getting login info from DB
   connection.query('SELECT * from loginInfo', function (err, res) {
@@ -82,6 +89,8 @@ app.post('/handler', function (req, res) {
     console.log("Response ...")
   })
 });
+
+
 
 
 
