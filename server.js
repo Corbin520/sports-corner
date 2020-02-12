@@ -1,42 +1,34 @@
 
-
-// Dependencies
-// =============================================================
+// DEPENDENCIES
 var express = require("express");
-var http = require("http");
 var mysql = require("mysql");
-var fs = require("fs");
 var express = require("express");
 var path = require("path");
 
-// Sets up the Express App
-// =============================================================
+// SETS UP THE EXPRESS APP
 var app = express();
 var PORT = 3001;
 
-// Sets up the Express app to handle data parsing
+// SETS UP THE EXPRESS APP TO HANDLE DATA PARSING
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public'))); // testing
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use("/assets", express.static("assets"))
 
 
-// home page route
+// ROUTES
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
   });
-// create account route
 app.get("/create", function(req, res) {
   res.sendFile(path.join(__dirname, "create.html"))
 });
-// login route
 app.get("/login", function(req, res) {
   res.sendFile(path.join(__dirname, "login.html"))
 });
 
 
-
-// DB Connection
+// DB CONNECTION
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -44,7 +36,7 @@ var connection = mysql.createConnection({
   database: "sportsCorner",
   port: 3306,
 });
-// connection response 
+// CONNECTION RESPONSE
 connection.connect(function (err) {
   console.log("SQL connected as id " + connection.threadId)
 });  
@@ -53,36 +45,23 @@ connection.connect(function (err) {
 
 
 
-// Takes the data from our login form
+// CREATE ACCOUNT FORM
 app.post('/handler', function (req, res) {
 
-
-  // user input from the forms
+  // USER INPUT FROM CA FORM
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var email = req.body.email;
   var passW = req.body.password;
 
-  // testing our response
-  console.log("F: " + firstName, "L: " + lastName, "E: " + email, "P: " + passW)
-
- 
-  connection.query("INSERT INTO loginInfo VALUES(firstName, lastName, email, passW)", function (err, res) {
-    if (err) throw err;
-    console.log("Inserted ...")
-  });
-
-
-
-  var sql = `INSERT INTO loginInfo VALUES (?, ?, ?, ?)`;
-
+  // SEND CA INFO TO DB
+  var sql = `INSERT INTO loginInfo VALUES (NULL, ?, ?, ?, ?)`;
   connection.query(sql, [firstName, lastName, email, passW], function (err, res) {
     if (err) throw err;
     console.log("Inserted ...")
   });
 
-
-  // Getting login info from DB
+  // GET LOGIN INFO FROM DB
   connection.query('SELECT * from loginInfo', function (err, res) {
     if (err) throw err;
     console.log(res)
@@ -92,12 +71,7 @@ app.post('/handler', function (req, res) {
 
 
 
-
-
-
-// connection.end()
-
-// Start Server
+// START SERVER
 app.listen(PORT, function() {
   console.log("Server listening on: http://localhost:" + PORT);
 });
