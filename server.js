@@ -32,7 +32,7 @@ app.get("/login", function(req, res) {
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "Oct0ber1st!",
   database: "sportsCorner",
   port: 3306,
 });
@@ -46,28 +46,46 @@ connection.connect(function (err) {
 
 
 // CREATE ACCOUNT FORM
-app.post('/handler', function (req, res) {
+app.post('/create', function (req, res) {
 
-  // USER INPUT FROM CA FORM
+  // USER INPUT CA FROM
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var email = req.body.email;
   var passW = req.body.password;
 
-  // SEND CA INFO TO DB
+  // SEND CA INFO TO DB (WORKING)
   var sql = `INSERT INTO loginInfo VALUES (NULL, ?, ?, ?, ?)`;
   connection.query(sql, [firstName, lastName, email, passW], function (err, res) {
     if (err) throw err;
     console.log("Inserted ...")
   });
 
-  // GET LOGIN INFO FROM DB
+  // GET LOGIN INFO FROM DB (WORKING)
   connection.query('SELECT * from loginInfo', function (err, res) {
     if (err) throw err;
     console.log(res)
     console.log("Response ...")
   })
 });
+
+
+
+
+
+// USER INPUT FORM LOGIN
+app.post('/lgnfrm', function (req, res) {
+
+    var usrEmail= req.body.usrEmail;
+    var usrPassw = req.body.usrPass;
+
+    // WORKING WHEN SEARCHING THE CORRECT EMAIL/IF ITS NOT CORRECT EMAIL ITS RETURNS = []
+    var sql = 'SELECT * FROM loginInfo WHERE email = (?)'
+    connection.query(sql, [usrEmail], function (err, res) {
+      console.log(res)
+    })
+})
+
 
 
 
