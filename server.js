@@ -32,7 +32,7 @@ app.get("/login", function(req, res) {
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Oct0ber1st!",
+  password: "",
   database: "sportsCorner",
   port: 3306,
 });
@@ -64,8 +64,8 @@ app.post('/create', function (req, res) {
   // GET LOGIN INFO FROM DB (WORKING)
   connection.query('SELECT * from loginInfo', function (err, res) {
     if (err) throw err;
-    console.log(res)
-    console.log("Response ...")
+    // console.log(res)
+    console.log("Got Response (not display)")
   })
 });
 
