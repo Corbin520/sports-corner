@@ -1,5 +1,6 @@
 
 // DEPENDENCIES
+var express
 var express = require("express");
 var mysql = require("mysql");
 var express = require("express");
@@ -83,6 +84,8 @@ app.post('/lgnfrm', function (req, res) {
     var sql = 'SELECT * FROM loginInfo WHERE email = (?)'
     connection.query(sql, [usrEmail], function (err, res) {
       console.log(res)
+
+      // IF STATEMENT SO THAT IF THE EMAIL MATCHES, WE CHECK THE PASSWORD, IF THEY BOTH MATCH, SERVE UP THE PAGE, IF NOT, TELL THEM IT DOES NOT MATCH.
     })
 })
 

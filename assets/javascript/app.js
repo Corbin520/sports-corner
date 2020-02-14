@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 var apiKey = config.apiKey
 
 // ** HOME PAGE **
@@ -41,6 +34,3 @@ $("#search-button").on("click", function() {
         }
     })
 })
-
-
-
