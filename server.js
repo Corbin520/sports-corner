@@ -32,7 +32,7 @@ app.get("/login", function(req, res) {
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "Oct0ber1st!",
   database: "sportsCorner",
   port: 3306,
 });
