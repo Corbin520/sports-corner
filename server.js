@@ -33,7 +33,7 @@ app.get("/login", function(req, res) {
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Oct0ber1st!",
+  password: "",
   database: "sportsCorner",
   port: 3306,
 });
@@ -59,14 +59,14 @@ app.post('/create', function (req, res) {
   var sql = `INSERT INTO loginInfo VALUES (NULL, ?, ?, ?, ?)`;
   connection.query(sql, [firstName, lastName, email, passW], function (err, res) {
     if (err) throw err;
-    console.log("Inserted ...")
+    console.log("INSERTED VALUE(s) INTO DB")
   });
 
   // GET LOGIN INFO FROM DB (WORKING)
   connection.query('SELECT * from loginInfo', function (err, res) {
     if (err) throw err;
     // console.log(res)
-    console.log("Got Response (not display)")
+    console.log("GOT ALL VALUES BACK FROM DB")
   })
 });
 
@@ -83,11 +83,31 @@ app.post('/lgnfrm', function (req, res) {
     // WORKING WHEN SEARCHING THE CORRECT EMAIL/IF ITS NOT CORRECT EMAIL ITS RETURNS = []
     var sql = 'SELECT * FROM loginInfo WHERE email = (?)'
     connection.query(sql, [usrEmail], function (err, res) {
-      console.log(res)
+      // console.log(res[0].passW)
 
-      // IF STATEMENT SO THAT IF THE EMAIL MATCHES, WE CHECK THE PASSWORD, IF THEY BOTH MATCH, SERVE UP THE PAGE, IF NOT, TELL THEM IT DOES NOT MATCH.
+      if (err) {
+        //
+        console.log(err)
+
+      } else {
+        // CHECKS IF THE EMAIL MATCHES DB
+        console.log("VALID EMAIL")
+
+        if (res.length > 0){
+
+          // IF EMAIL VALID, CHECK PASSWORD
+          if (res[0].passW == usrPassw) {
+            // isAuthenticated = true
+            console.log("LOGIN SUCCESSFUL");
+
+          } else {
+            // INCORRECT PASSWORD
+            console.log("PASSWORD INCORRECT");
+          }
+        }
+      }
     })
-})
+ })
 
 
 
