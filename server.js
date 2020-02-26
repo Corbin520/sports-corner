@@ -37,7 +37,7 @@ var loggedIn = false;
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Oct0ber1st!",
+  password: "",
   database: "sportsCorner",
   port: 3306,
 });
