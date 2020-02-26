@@ -1,5 +1,10 @@
 var apiKey = config.apiKey
 
+
+// calling this from server.js
+    // console.log(process.env.API_KEY);
+    // console.log(process.env)
+
 // ** HOME PAGE **
 
 $("#search-button").on("click", function() {

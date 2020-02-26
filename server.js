@@ -5,6 +5,9 @@ var express = require("express");
 var mysql = require("mysql");
 var express = require("express");
 var path = require("path");
+require('dotenv').config();
+
+
 
 // SETS UP THE EXPRESS APP
 var app = express();
@@ -19,21 +22,22 @@ app.use("/assets", express.static("assets"))
 
 // ROUTES
 app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.join(__dirname, "login.html"));
   });
 app.get("/create", function(req, res) {
   res.sendFile(path.join(__dirname, "create.html"))
 });
-app.get("/login", function(req, res) {
-  res.sendFile(path.join(__dirname, "login.html"))
+app.get("/home", function(req, res) {
+  res.sendFile(path.join(__dirname, "index.html"))
 });
 
+var loggedIn = false;
 
 // DB CONNECTION
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "Oct0ber1st!",
   database: "sportsCorner",
   port: 3306,
 });
@@ -80,31 +84,32 @@ app.post('/lgnfrm', function (req, res) {
     var usrEmail= req.body.usrEmail;
     var usrPassw = req.body.usrPass;
 
-    // WORKING WHEN SEARCHING THE CORRECT EMAIL/IF ITS NOT CORRECT EMAIL ITS RETURNS = []
+    // INSERT WORKING
     var sql = 'SELECT * FROM loginInfo WHERE email = (?)'
-    connection.query(sql, [usrEmail], function (err, res) {
-      // console.log(res[0].passW)
+    connection.query(sql, [usrEmail], function (err, results) {
 
+ 
+      // IF/ELSE CHECKING IF PASSWORD AND EMAIL MATCH DB VALUES
       if (err) {
         //
         console.log(err)
 
       } else {
         // CHECKS IF THE EMAIL MATCHES DB
-        console.log("VALID EMAIL")
-
-        if (res.length > 0){
+        if (results.length > 0){
 
           // IF EMAIL VALID, CHECK PASSWORD
-          if (res[0].passW == usrPassw) {
-            // isAuthenticated = true
-            console.log("LOGIN SUCCESSFUL");
-
+          if (results[0].passW == usrPassw) {
+            loggedIn = true;
           } else {
             // INCORRECT PASSWORD
-            console.log("PASSWORD INCORRECT");
+            console.log("USERNAME / PASSWORD INCORRECT");
           }
         }
+      }
+      if(loggedIn === true) {
+        console.log("Signed In")
+        res.redirect('/home');
       }
     })
  })
